@@ -1,5 +1,10 @@
 # LensTranslate — PRD
 
+## Changelog
+- 2026-06 (v1): MVP — pick/camera image → Gemini OCR+translate → overlay bubbles; 5 languages; light/dark; auto/manual source; history.
+- 2026-06 (v2): Added Korean (source/target + full interface). Added Quick mode ("translate latest screenshot", works in Expo Go via expo-media-library). Added Live Screen Capture tab (Android build only: react-native-frame-capture + expo-draw-over-apps, floating bubble → capture → translate); gracefully shows "Android build required" in Expo Go/web/iOS. Tabs now: Çeviri / Canlı / Geçmiş / Ayarlar.
+
+
 ## Original Problem Statement
 Turkish user wants a mobile app that translates on-screen text in real time — for games, films, series, anime, manga, webtoon. Multiple languages (English, Japanese, Chinese, Turkish, Russian) for both translation and the interface. Light/dark mode toggle. Source→target language selectable both automatically (auto-detect) and manually. AI-powered translation (Gemini). Simple interface.
 

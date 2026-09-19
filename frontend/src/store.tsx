@@ -9,7 +9,7 @@ import React, {
 
 import { storage } from "@/src/utils/storage";
 import { setThemeMode as applyThemeMode } from "@/src/theme";
-import { TKey, translate, UILang } from "@/src/i18n";
+import { TKey, LiveKey, translate, translateLive, UILang } from "@/src/i18n";
 import { LangCode, SourceCode } from "@/src/languages";
 import { TranslateResult } from "@/src/api";
 
@@ -41,6 +41,7 @@ interface StoreValue {
   setDefaultSource: (s: SourceCode) => void;
   setDefaultTarget: (t: LangCode) => void;
   t: (key: TKey) => string;
+  tl: (key: LiveKey) => string;
 
   history: TranslateResult[];
   addHistory: (r: TranslateResult) => void;
@@ -115,6 +116,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   );
 
   const t = useCallback((key: TKey) => translate(settings.uiLang, key), [settings.uiLang]);
+  const tl = useCallback((key: LiveKey) => translateLive(settings.uiLang, key), [settings.uiLang]);
 
   const addHistory = useCallback((r: TranslateResult) => {
     setHistory((prev) => {
@@ -138,6 +140,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       setDefaultSource,
       setDefaultTarget,
       t,
+      tl,
       history,
       addHistory,
       clearHistory,
@@ -152,6 +155,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       setDefaultSource,
       setDefaultTarget,
       t,
+      tl,
       history,
       addHistory,
       clearHistory,

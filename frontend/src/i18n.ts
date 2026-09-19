@@ -242,9 +242,176 @@ const ru: Dict = {
   cancel: "Отмена",
 };
 
-export const TRANSLATIONS: Record<UILang, Dict> = { en, ja, zh, tr, ru };
+const ko: Dict = {
+  appName: "LensTranslate",
+  tabTranslate: "번역",
+  tabHistory: "기록",
+  tabSettings: "설정",
+  from: "원본",
+  to: "대상",
+  auto: "자동 감지",
+  selectLanguage: "언어 선택",
+  dropTitle: "어떤 화면이든 번역",
+  dropSubtitle: "스크린샷을 고르거나 사진을 찍으세요 — 만화, 게임, 자막, 무엇이든.",
+  gallery: "갤러리에서 선택",
+  camera: "사진 촬영",
+  detecting: "텍스트 감지 중…",
+  noText: "이미지에서 텍스트를 찾지 못했습니다",
+  failed: "번역에 실패했습니다. 다시 시도하세요.",
+  tryAgain: "다시 시도",
+  original: "원문",
+  translated: "번역",
+  share: "공유",
+  detectedAs: "감지됨",
+  tapBubbleHint: "말풍선을 눌러 원문 보기",
+  historyTitle: "기록",
+  noHistory: "아직 번역이 없습니다",
+  noHistorySub: "번역한 화면이 여기에 표시됩니다.",
+  clearHistory: "기록 지우기",
+  regions: "블록",
+  settingsTitle: "설정",
+  appearance: "화면 모드",
+  theme: "테마",
+  themeSystem: "시스템",
+  themeLight: "라이트",
+  themeDark: "다크",
+  defaults: "기본값",
+  interfaceLanguage: "인터페이스 언어",
+  defaultSource: "기본 원본 언어",
+  defaultTarget: "기본 대상 언어",
+  about: "정보",
+  aboutText: "Gemini 기반 AI 화면 번역기.",
+  permTitle: "권한 필요",
+  permCamera: "번역할 화면을 촬영하려면 카메라를 허용하세요.",
+  permGallery: "스크린샷을 번역하려면 사진 접근을 허용하세요.",
+  openSettings: "설정 열기",
+  cancel: "취소",
+};
+
+export const TRANSLATIONS: Record<UILang, Dict> = { en, ja, zh, tr, ru, ko };
 export type TKey = keyof Dict;
 
 export function translate(lang: UILang, key: TKey): string {
   return (TRANSLATIONS[lang] ?? en)[key] ?? en[key];
+}
+
+// ---------------------------------------------------------------------------
+// Feature-scoped strings for the Quick + Live Screen Capture modes.
+// ---------------------------------------------------------------------------
+const LIVE_EN = {
+  tabLive: "Live",
+  quickLatest: "Translate latest screenshot",
+  quickHint: "One tap — grabs your most recent screenshot and translates it.",
+  liveTitle: "Live screen translate",
+  liveSubtitle: "A floating button lets you capture and translate the screen while you're inside any other app.",
+  liveAndroidOnly: "Android only. This works only in a built app — not in Expo Go or on iOS.",
+  liveUnavailable: "Live capture isn't available here. Build an Android app to use it.",
+  liveStart: "Start live translate",
+  liveStop: "Stop",
+  liveRunning: "Live translate is running. Open any app and tap the floating button.",
+  grantOverlay: "Allow drawing over other apps",
+  grantCapture: "Allow screen capture",
+  capturing: "Capturing screen…",
+  buildReminder: "Deploy (Publish) → generate an Android build to test this feature on your device.",
+};
+type LiveDict = typeof LIVE_EN;
+
+const LIVE_JA: LiveDict = {
+  tabLive: "ライブ",
+  quickLatest: "最新のスクショを翻訳",
+  quickHint: "ワンタップ — 最新のスクリーンショットを取得して翻訳します。",
+  liveTitle: "ライブ画面翻訳",
+  liveSubtitle: "フローティングボタンで、他のアプリを使いながら画面を取得して翻訳できます。",
+  liveAndroidOnly: "Android専用。ビルドしたアプリでのみ動作します（Expo GoやiOSでは不可）。",
+  liveUnavailable: "ここではライブ取得を利用できません。Androidビルドが必要です。",
+  liveStart: "ライブ翻訳を開始",
+  liveStop: "停止",
+  liveRunning: "ライブ翻訳が実行中です。アプリを開いてフローティングボタンをタップ。",
+  grantOverlay: "他のアプリの上に表示を許可",
+  grantCapture: "画面キャプチャを許可",
+  capturing: "画面を取得中…",
+  buildReminder: "公開（Publish）→ Androidビルドを作成して端末でこの機能を試してください。",
+};
+
+const LIVE_ZH: LiveDict = {
+  tabLive: "实时",
+  quickLatest: "翻译最新截图",
+  quickHint: "一键获取最新截图并翻译。",
+  liveTitle: "实时屏幕翻译",
+  liveSubtitle: "悬浮按钮让你在使用其他任意应用时抓取并翻译屏幕。",
+  liveAndroidOnly: "仅限 Android。只能在已构建的应用中使用（Expo Go 和 iOS 不支持）。",
+  liveUnavailable: "此处无法使用实时抓取，需要构建 Android 应用。",
+  liveStart: "开始实时翻译",
+  liveStop: "停止",
+  liveRunning: "实时翻译运行中。打开任意应用并点击悬浮按钮。",
+  grantOverlay: "允许显示在其他应用之上",
+  grantCapture: "允许屏幕抓取",
+  capturing: "正在抓取屏幕…",
+  buildReminder: "发布（Publish）→ 生成 Android 构建以在设备上测试此功能。",
+};
+
+const LIVE_TR: LiveDict = {
+  tabLive: "Canlı",
+  quickLatest: "Son ekran görüntüsünü çevir",
+  quickHint: "Tek dokunuş — en son ekran görüntünü alıp çevirir.",
+  liveTitle: "Canlı ekran çevirisi",
+  liveSubtitle: "Yüzen bir düğmeyle başka herhangi bir uygulamadayken ekranı yakalayıp çevirebilirsin.",
+  liveAndroidOnly: "Yalnızca Android. Sadece derlenmiş (build) uygulamada çalışır — Expo Go ve iOS'ta değil.",
+  liveUnavailable: "Canlı yakalama burada kullanılamıyor. Kullanmak için Android build oluşturun.",
+  liveStart: "Canlı çeviriyi başlat",
+  liveStop: "Durdur",
+  liveRunning: "Canlı çeviri çalışıyor. Herhangi bir uygulamayı açıp yüzen düğmeye dokun.",
+  grantOverlay: "Diğer uygulamaların üzerinde göstermeye izin ver",
+  grantCapture: "Ekran yakalamaya izin ver",
+  capturing: "Ekran yakalanıyor…",
+  buildReminder: "Yayınla (Publish) → bu özelliği cihazında test etmek için Android build oluştur.",
+};
+
+const LIVE_RU: LiveDict = {
+  tabLive: "Живой",
+  quickLatest: "Перевести последний скриншот",
+  quickHint: "Одно нажатие — берёт последний скриншот и переводит его.",
+  liveTitle: "Живой перевод экрана",
+  liveSubtitle: "Плавающая кнопка позволяет захватить и перевести экран, находясь в любом другом приложении.",
+  liveAndroidOnly: "Только Android. Работает лишь в собранном приложении — не в Expo Go и не на iOS.",
+  liveUnavailable: "Живой захват здесь недоступен. Соберите Android-приложение.",
+  liveStart: "Запустить живой перевод",
+  liveStop: "Остановить",
+  liveRunning: "Живой перевод работает. Откройте любое приложение и нажмите плавающую кнопку.",
+  grantOverlay: "Разрешить отображение поверх других приложений",
+  grantCapture: "Разрешить захват экрана",
+  capturing: "Захват экрана…",
+  buildReminder: "Опубликуйте (Publish) → создайте Android-сборку, чтобы протестировать функцию на устройстве.",
+};
+
+const LIVE_KO: LiveDict = {
+  tabLive: "실시간",
+  quickLatest: "최신 스크린샷 번역",
+  quickHint: "한 번의 탭 — 최신 스크린샷을 가져와 번역합니다.",
+  liveTitle: "실시간 화면 번역",
+  liveSubtitle: "플로팅 버튼으로 다른 앱을 사용하는 중에도 화면을 캡처해 번역할 수 있어요.",
+  liveAndroidOnly: "Android 전용. 빌드된 앱에서만 작동합니다 (Expo Go·iOS 불가).",
+  liveUnavailable: "여기서는 실시간 캡처를 사용할 수 없습니다. Android 빌드가 필요합니다.",
+  liveStart: "실시간 번역 시작",
+  liveStop: "중지",
+  liveRunning: "실시간 번역 실행 중. 아무 앱이나 열고 플로팅 버튼을 누르세요.",
+  grantOverlay: "다른 앱 위에 표시 허용",
+  grantCapture: "화면 캡처 허용",
+  capturing: "화면 캡처 중…",
+  buildReminder: "게시(Publish) → Android 빌드를 만들어 기기에서 이 기능을 테스트하세요.",
+};
+
+const LIVE: Record<UILang, LiveDict> = {
+  en: LIVE_EN,
+  ja: LIVE_JA,
+  zh: LIVE_ZH,
+  tr: LIVE_TR,
+  ru: LIVE_RU,
+  ko: LIVE_KO,
+};
+
+export type LiveKey = keyof LiveDict;
+
+export function translateLive(lang: UILang, key: LiveKey): string {
+  return (LIVE[lang] ?? LIVE_EN)[key] ?? LIVE_EN[key];
 }

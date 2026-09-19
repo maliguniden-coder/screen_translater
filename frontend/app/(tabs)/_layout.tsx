@@ -2,7 +2,7 @@ import React from "react";
 import { Platform } from "react-native";
 import { Tabs } from "expo-router";
 import { NativeTabs } from "expo-router/unstable-native-tabs";
-import { ClockCounterClockwise, GearSix, Translate } from "phosphor-react-native";
+import { ClockCounterClockwise, Broadcast, GearSix, Translate } from "phosphor-react-native";
 
 import { usesNativeTabs } from "@/src/navigation";
 import { useStore } from "@/src/store";
@@ -10,7 +10,7 @@ import { fontSize, useTheme } from "@/src/theme";
 
 export default function TabsLayout() {
   const { colors } = useTheme();
-  const { t } = useStore();
+  const { t, tl } = useStore();
 
   if (usesNativeTabs) {
     return (
@@ -18,6 +18,10 @@ export default function TabsLayout() {
         <NativeTabs.Trigger name="index">
           <NativeTabs.Trigger.Icon sf="character.bubble" />
           <NativeTabs.Trigger.Label>{t("tabTranslate")}</NativeTabs.Trigger.Label>
+        </NativeTabs.Trigger>
+        <NativeTabs.Trigger name="live">
+          <NativeTabs.Trigger.Icon sf="dot.radiowaves.left.and.right" />
+          <NativeTabs.Trigger.Label>{tl("tabLive")}</NativeTabs.Trigger.Label>
         </NativeTabs.Trigger>
         <NativeTabs.Trigger name="history">
           <NativeTabs.Trigger.Icon sf="clock.arrow.circlepath" />
@@ -52,6 +56,15 @@ export default function TabsLayout() {
           title: t("tabTranslate"),
           tabBarIcon: ({ color, focused }) => (
             <Translate size={24} color={color} weight={focused ? "fill" : "regular"} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="live"
+        options={{
+          title: tl("tabLive"),
+          tabBarIcon: ({ color, focused }) => (
+            <Broadcast size={24} color={color} weight={focused ? "fill" : "regular"} />
           ),
         }}
       />

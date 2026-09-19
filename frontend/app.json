@@ -21,7 +21,14 @@
         "backgroundColor": "#000000"
       },
       "package": "com.emergent.realtimetextocr.xasg2i",
-      "permissions": ["CAMERA", "READ_MEDIA_IMAGES"]
+      "permissions": [
+        "CAMERA",
+        "READ_MEDIA_IMAGES",
+        "SYSTEM_ALERT_WINDOW",
+        "FOREGROUND_SERVICE",
+        "FOREGROUND_SERVICE_MEDIA_PROJECTION",
+        "POST_NOTIFICATIONS"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -50,7 +57,15 @@
       ],
       "expo-secure-store",
       "expo-web-browser",
-      "expo-status-bar"
+      "expo-status-bar",
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Translate text from your latest screenshots",
+          "savePhotosPermission": "Save translated screens to your gallery"
+        }
+      ],
+      "react-native-frame-capture"
     ],
     "experiments": {
       "typedRoutes": true

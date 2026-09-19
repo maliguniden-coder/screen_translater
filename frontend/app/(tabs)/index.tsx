@@ -3,14 +3,14 @@ import { Linking, Modal, Pressable, Text, View } from "react-native";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import * as Haptics from "expo-haptics";
-import { ArrowsLeftRight, Camera, CaretDown, ImageSquare } from "phosphor-react-native";
+import { ArrowsLeftRight, Camera, CaretDown, ImageSquare, Lightning } from "phosphor-react-native";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { ActivityIndicator } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { LanguageSheet, LanguageSheetRef, SheetMode } from "@/src/components/LanguageSheet";
 import { langFlag, langLabel, LangCode, SourceCode } from "@/src/languages";
-import { pickFromCamera, pickFromGallery, PickOutcome } from "@/src/imagePicker";
+import { pickFromCamera, pickFromGallery, pickLatest, PickOutcome } from "@/src/imagePicker";
 import { translateImage } from "@/src/api";
 import { usesNativeTabs } from "@/src/navigation";
 import { useStore } from "@/src/store";
@@ -23,7 +23,7 @@ const HERO =
 export default function TranslateScreen() {
   const styles = useStyles();
   const { colors } = useTheme();
-  const { t, settings, addHistory, setActiveResult } = useStore();
+  const { t, tl, settings, addHistory, setActiveResult } = useStore();
   const toast = useToast();
   const router = useRouter();
   const insets = useSafeAreaInsets();
@@ -85,6 +85,13 @@ export default function TranslateScreen() {
 
   const onGallery = async () => handleOutcome(await pickFromGallery(), "gallery");
   const onCamera = async () => handleOutcome(await pickFromCamera(), "camera");
+  const onQuick = async () => {
+    try {
+      handleOutcome(await pickLatest(), "gallery");
+    } catch {
+      toast.show(t("failed"), "error");
+    }
+  };
 
   const LangChip = ({ label, value, mode }: { label: string; value: SourceCode; mode: SheetMode }) => (
     <Pressable style={styles.chip} onPress={() => openSheet(mode)} testID={`lang-chip-${mode}`}>
@@ -126,6 +133,15 @@ export default function TranslateScreen() {
       </View>
 
       <View style={[styles.footer, { paddingBottom: bottomChrome + spacing.lg }]}>
+        <Pressable style={styles.quickBtn} onPress={onQuick} testID="quick-latest-button">
+          <Lightning size={20} color={colors.onBrandTertiary} weight="fill" />
+          <View style={styles.quickTextWrap}>
+            <Text style={styles.quickTitle}>{tl("quickLatest")}</Text>
+            <Text style={styles.quickHint} numberOfLines={1}>
+              {tl("quickHint")}
+            </Text>
+          </View>
+        </Pressable>
         <Pressable style={styles.primaryBtn} onPress={onGallery} testID="pick-gallery-button">
           <ImageSquare size={22} color={colors.onBrandPrimary} weight="fill" />
           <Text style={styles.primaryText}>{t("gallery")}</Text>
@@ -262,6 +278,19 @@ const useStyles = makeStyles((colors) => ({
     borderRadius: radius.md,
   },
   secondaryText: { color: colors.onBrandSecondary, fontSize: fontSize.lg, fontWeight: "700" },
+
+  quickBtn: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing.md,
+    backgroundColor: colors.brandTertiary,
+    paddingVertical: spacing.md,
+    paddingHorizontal: spacing.lg,
+    borderRadius: radius.md,
+  },
+  quickTextWrap: { flex: 1 },
+  quickTitle: { color: colors.onBrandTertiary, fontSize: fontSize.base, fontWeight: "700" },
+  quickHint: { color: colors.onBrandTertiary, fontSize: fontSize.sm, opacity: 0.8, marginTop: 1 },
 
   loadingOverlay: {
     ...({ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 } as const),
