@@ -1,0 +1,192 @@
+{
+  "app_name": "LensTranslate",
+  "personality": "1 iOS-Native Clean",
+  "personality_one_liner": "A distraction-free, highly legible reading utility that stays out of the way of the content.",
+  "color": {
+    "light": {
+      "surface": "#FAFAFA",
+      "onSurface": "#111111",
+      "surfaceSecondary": "#FFFFFF",
+      "onSurfaceSecondary": "#111111",
+      "surfaceTertiary": "#F0F0F0",
+      "onSurfaceTertiary": "#333333",
+      "surfaceInverse": "#111111",
+      "onSurfaceInverse": "#FFFFFF",
+      "brand": "#5A7356",
+      "brandPrimary": "#5A7356",
+      "onBrandPrimary": "#FFFFFF",
+      "brandSecondary": "#E8EBE7",
+      "onBrandSecondary": "#344632",
+      "brandTertiary": "#F1F4F1",
+      "onBrandTertiary": "#40523E",
+      "success": "#3C6141",
+      "onSuccess": "#FFFFFF",
+      "warning": "#8A671B",
+      "onWarning": "#FFFFFF",
+      "error": "#8B3A36",
+      "onError": "#FFFFFF",
+      "info": "#3E5C60",
+      "onInfo": "#FFFFFF",
+      "border": "#E5E5E5",
+      "borderStrong": "#CCCCCC",
+      "divider": "#EBEBEB",
+      "muted": "#737373",
+      "onBrand": "#FFFFFF"
+    },
+    "dark": {
+      "surface": "#0F0F0F",
+      "onSurface": "#EDEDED",
+      "surfaceSecondary": "#1A1A1A",
+      "onSurfaceSecondary": "#EDEDED",
+      "surfaceTertiary": "#262626",
+      "onSurfaceTertiary": "#CCCCCC",
+      "surfaceInverse": "#FAFAFA",
+      "onSurfaceInverse": "#111111",
+      "brand": "#6A8666",
+      "brandPrimary": "#769571",
+      "onBrandPrimary": "#0B120B",
+      "brandSecondary": "#1F291E",
+      "onBrandSecondary": "#A3C29D",
+      "brandTertiary": "#171F16",
+      "onBrandTertiary": "#8BB085",
+      "success": "#4A7A52",
+      "onSuccess": "#0B120B",
+      "warning": "#A8822B",
+      "onWarning": "#120E03",
+      "error": "#B04F4A",
+      "onError": "#1A0A09",
+      "info": "#527D82",
+      "onInfo": "#0B120B",
+      "border": "#2E2E2E",
+      "borderStrong": "#454545",
+      "divider": "#242424",
+      "muted": "#8F8F8F",
+      "onBrand": "#0B120B"
+    }
+  },
+  "typography": {
+    "displayFontFamily": "Satoshi",
+    "textFontFamily": "Satoshi",
+    "scale": {
+      "sm": 12,
+      "base": 14,
+      "lg": 16,
+      "xl": 20,
+      "2xl": 24
+    }
+  },
+  "spacing": {
+    "rule": "Generous vertical breathing room. Cards and list items should feel touch-friendly, never cramped.",
+    "xs": 4,
+    "sm": 8,
+    "md": 12,
+    "lg": 16,
+    "xl": 24,
+    "2xl": 32,
+    "3xl": 48
+  },
+  "radius_tokens": {
+    "sm": 6,
+    "md": 12,
+    "lg": 20,
+    "pill": 999
+  },
+  "shadow_tier": "1",
+  "navigation": "bottom_tabs",
+  "icon_set": "Phosphor",
+  "glassmorphism": {
+    "enabled": true,
+    "do's": [
+      "Use frosted glass on the top pinned header over the overlay image viewer.",
+      "Use glass on the bottom tab bar.",
+      "Use glass for floating action buttons."
+    ],
+    "dont's": [
+      "Do not use glass for the text translation bubbles (they need maximum solid contrast).",
+      "Do not blur standard list rows."
+    ]
+  },
+  "platform_libraries": {
+    "glass": {
+      "ios": "expo-glass-effect",
+      "android": "expo-blur",
+      "low_end_android_fallback": "solid surfaceSecondary"
+    },
+    "image": "expo-image",
+    "blur": "expo-blur",
+    "bottom_sheet": "@gorhom/bottom-sheet",
+    "animation": "react-native-reanimated",
+    "gesture": "react-native-gesture-handler"
+  },
+  "screens": [
+    {
+      "name": "Translate Screen (Home)",
+      "purpose": "Primary workflow to pick an image, configure language, and initiate translation.",
+      "states": {
+        "loading": "Centered spinner with a 'Detecting text...' caption.",
+        "empty": "A prominent dashed-border dropzone or illustration encouraging the user to select an image from the gallery or camera.",
+        "error": "Message 'Failed to read image' with a 'Try Again' CTA."
+      },
+      "layout": "Top section: A sleek, pill-shaped Language Selector row (Source -> Target). Middle: A large empty state area (dashed upload block). Bottom: A sticky primary CTA to 'Select Image' wrapped in a bottom safe-area container."
+    },
+    {
+      "name": "Language Selector (Bottom Sheet)",
+      "purpose": "A quick selection modal for changing source or target languages.",
+      "states": {
+        "loading": "N/A",
+        "empty": "N/A",
+        "error": "N/A"
+      },
+      "layout": "A drag-handle bottom sheet. Top: 'Auto-detect' featured as a distinct, primary choice. Below: A clean single-column list of supported languages (English, Japanese, Chinese, Turkish, Russian) with a checkmark for the active selection. Solid surface background."
+    },
+    {
+      "name": "Overlay Result View",
+      "purpose": "Full-screen viewer displaying the original image with translated text bubbles overlaid at their exact coordinates.",
+      "states": {
+        "loading": "Skeleton placeholders pulsing over the detected bounding boxes before the translation resolves.",
+        "empty": "Toast: 'No text detected in this image.'",
+        "error": "Toast: 'Translation service unavailable.'"
+      },
+      "layout": "Edge-to-edge image view. A glassmorphic top header containing a 'Back' button and 'Share' button. Translation bubbles are rendered as absolutely positioned Views over the image using 'surfaceInverse' backgrounds for maximum contrast against manga/game art. Tapping a bubble morphs it or reveals a tooltip showing the original untranslated text."
+    },
+    {
+      "name": "History Screen",
+      "purpose": "Archive of previously translated images.",
+      "states": {
+        "loading": "Skeleton list rows.",
+        "empty": "Illustration of blank polaroids with text 'No translations yet'.",
+        "error": "Message 'Failed to load history' with 'Retry' button."
+      },
+      "layout": "Standard single-column list. Each row has a square thumbnail of the original image (left), the translated snippet or filename (title), and date (subtitle). Tap row to reopen Overlay Result View."
+    },
+    {
+      "name": "Settings Screen",
+      "purpose": "User preferences for theme and default languages.",
+      "states": {
+        "loading": "N/A",
+        "empty": "N/A",
+        "error": "N/A"
+      },
+      "layout": "iOS-native style list. Group 1: Appearance (Light/Dark mode toggle). Group 2: Defaults (Interface Language, Default Source, Default Target). Group 3: About. Use tinted icon containers on the left of each row."
+    }
+  ],
+  "images": {
+    "history_empty": {
+      "url": "https://images.pexels.com/photos/8165596/pexels-photo-8165596.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "alt": "A simple composition of Polaroid-style frames on a white background."
+    },
+    "manga_demo_hero": {
+      "url": "https://images.pexels.com/photos/36772029/pexels-photo-36772029.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "alt": "Hands holding a manga book on a wooden table, showcasing artistic illustrations."
+    }
+  },
+  "instructions_to_main_agent": [
+    "Strictly follow the color palette tokens. I have provided nested 'light' and 'dark' objects within 'color'. Map your theme provider to read these correctly.",
+    "Implement the 'Overlay Result View' translation bubbles using `surfaceInverse` as their background color and `onSurfaceInverse` for text. Since manga is often black and white (light backgrounds), and games can be dark, `surfaceInverse` guarantees it will pop heavily against standard reading materials.",
+    "In the Overlay Result View, the image MUST go edge-to-edge behind a glassmorphic top header (which houses the Back action).",
+    "For the Language Selector, implement it as a Bottom Sheet (`@gorhom/bottom-sheet`) rather than a full-screen navigation stack. 'Auto-detect' must be visually distinct from the manual language list.",
+    "No indigo, blue, purple, or generic AI colors were used. The brand color is a calm, earthy 'Moss Green' (`#5A7356`). Do not introduce blue or purple anywhere.",
+    "Use Phosphor icons. Outline weight for inactive states, Fill weight for active tab states. Settings rows should have icons wrapped in `brandTertiary` tinted rounded squares.",
+    "Ensure 'History' and 'Translate' screens have appropriate safe-area paddings at the bottom to avoid the bottom tabs overlaying content."
+  ]
+}
